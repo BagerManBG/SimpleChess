@@ -3,13 +3,49 @@ $(document).ready(function(){
 	createField();
 	initializeField();
 
-	$('#main-content .field img').bind("click", function(){
+	// $('#main-content .field img').bind("click", function(){
+
+	// 	var $this = $(this);
+	// 	var id = $this.attr('id');
+	// 	var coords = $this.parent().attr('id');
+	// 	var x = coords.charAt(0);
+	// 	var y = coords.charAt(2); 
+
+	// 	console.log(id + " on " + coords);
+
+	// 	if (id == 'w_p') {
+	// 		var greenX = x - 1;
+	// 		$('.field#' + pX + '_' + y).css('background-color', 'green');
+	// 		console.log($('.field#' + x + '_' + y).attr(id))
+	// 	}
+	// });
+
+	var greenDots = new Array();
+
+	$('#main-content .field img').bind("mouseenter", function(){
 
 		var $this = $(this);
 		var id = $this.attr('id');
 		var coords = $this.parent().attr('id');
+		var x = coords.charAt(0);
+		var y = coords.charAt(2); 
 
-		console.log(id + " on " + coords);
+		//console.log(id + " on " + coords);
+
+		if (id == 'w_p') {
+			var greenX = x - 1;
+			$('.field#' + greenX + '_' + y).css('background-image', "url('resources/images/GreenDot.png')");
+			//console.log($('.field#' + greenX + '_' + y).attr(id))
+			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+		}
+	});
+
+	$('#main-content .field img').bind("mouseleave", function(){
+		console.log(greenDots[0]);
+		for (var i = 0; i < greenDots.length; i++) {
+			$('.field#' + greenDots[i]).css('background-image', "none");
+		}
+		greenDots.length = 0;
 	});
 });
 
