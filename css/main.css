@@ -7,6 +7,11 @@
 	float: left;
 }
 
+#main-content.rotated {
+
+	transform: rotate(180deg);
+}
+
 #main-content .field {
 
 	width: 12.5%;
@@ -25,10 +30,14 @@
 	background-color: #deb987;
 }
 
-#main-content .field img {
+#main-content .field img.pieces {
 
 	float: left;
 	width: 80%;
 	margin: 10%;
+}
+
+#main-content .field img.onTurn {
+
 	cursor: pointer;
 }

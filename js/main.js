@@ -1,3 +1,5 @@
+var turn = 1; //1 - whites; 0 - blacks
+
 $(document).ready(function(){
 
 	createField();
@@ -73,21 +75,53 @@ function createField() {
 
 function initializeField() {
 
-	$('.field#0_0, .field#0_7').append("<img src='resources/images/pieces/b_t.svg' id='b_t'>");
-	$('.field#0_1, .field#0_6').append("<img src='resources/images/pieces/b_k.svg' id='b_k'>");
-	$('.field#0_2, .field#0_5').append("<img src='resources/images/pieces/b_o.svg' id='b_o'>");
-	$('.field#0_3').append("<img src='resources/images/pieces/b_q.svg' id='b_q'>");
-	$('.field#0_4').append("<img src='resources/images/pieces/b_kg.svg' id='b_kg'>");
+	$('.field#0_0, .field#0_7').append("<img src='resources/images/pieces/b_t.svg' id='b_t' class='b'>");
+	$('.field#0_1, .field#0_6').append("<img src='resources/images/pieces/b_k.svg' id='b_k' class='b'>");
+	$('.field#0_2, .field#0_5').append("<img src='resources/images/pieces/b_o.svg' id='b_o' class='b'>");
+	$('.field#0_3').append("<img src='resources/images/pieces/b_q.svg' id='b_q' class='b'>");
+	$('.field#0_4').append("<img src='resources/images/pieces/b_kg.svg' id='b_kg' class='b'>");
 
-	$('.field#7_0, .field#7_7').append("<img src='resources/images/pieces/w_t.svg' id='w_t'>");
-	$('.field#7_1, .field#7_6').append("<img src='resources/images/pieces/w_k.svg' id='w_k'>");
-	$('.field#7_2, .field#7_5').append("<img src='resources/images/pieces/w_o.svg' id='w_o'>");
-	$('.field#7_3').append("<img src='resources/images/pieces/w_q.svg' id='w_q'>");
-	$('.field#7_4').append("<img src='resources/images/pieces/w_kg.svg' id='w_kg'>");
+	$('.field#7_0, .field#7_7').append("<img src='resources/images/pieces/w_t.svg' id='w_t' class='w'>");
+	$('.field#7_1, .field#7_6').append("<img src='resources/images/pieces/w_k.svg' id='w_k' class='w'>");
+	$('.field#7_2, .field#7_5').append("<img src='resources/images/pieces/w_o.svg' id='w_o' class='w'>");
+	$('.field#7_3').append("<img src='resources/images/pieces/w_q.svg' id='w_q' class='w'>");
+	$('.field#7_4').append("<img src='resources/images/pieces/w_kg.svg' id='w_kg' class='w'>");
 
 	for (var i = 0; i < 8; i++) {
 		
-		$('.field#1_' + i).append("<img src='resources/images/pieces/b_p.svg' id='b_p'>");
-		$('.field#6_' + i).append("<img src='resources/images/pieces/w_p.svg' id='w_p'>");
+		$('.field#1_' + i).append("<img src='resources/images/pieces/b_p.svg' id='b_p' class='b'>");
+		$('.field#6_' + i).append("<img src='resources/images/pieces/w_p.svg' id='w_p' class='w'>");
 	}
+
+	$('.field img').addClass('pieces');
+	$('.field img.w').addClass('onTurn');
+}
+
+function changeTurn() {
+
+	switch (turn) {
+
+		case 0:
+			turn++;
+			$('.field img.b').removeClass('onTurn');
+			$('.field img.w').addClass('onTurn');
+			break;
+		case 1:
+			turn--;
+			$('.field img.w').removeClass('onTurn');
+			$('.field img.b').addClass('onTurn');
+			break;
+		default:
+			break;
+	}
+
+	if( $('#main-content').hasClass('rotated') ) {
+
+		$('#main-content').removeClass('rotated');
+	} else {
+
+		$('#main-content').addClass('rotated');
+	}
+
+	console.log(turn);
 }
