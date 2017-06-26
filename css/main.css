@@ -43,5 +43,11 @@
 }
 
 .greenBG {
+
 	background-image: url("../resources/images/GreenDot.png");
+}
+
+.selectedPiece {
+
+	background-image: url("../resources/images/PinkDot.png");
 }
