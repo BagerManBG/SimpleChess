@@ -44,7 +44,4 @@
 
 .greenBG {
 	background-image: url("../resources/images/GreenDot.png");
-	background-attachment: fixed;
-	background-size: cover;
-	background-position: 50% 80%;
 }

@@ -1,62 +1,25 @@
 var playerTurn = 1; //1 - whites; 0 - blacks
 var turn = 1;
+var greenDots = new Array();
 
 $(document).ready(function(){
 
 	createField();
 	initializeField();
 
-	var greenDots = new Array();
-
 	$('#main-content .field img').bind("mouseenter", function(){
 
 		var $this = $(this);
-		var id = $this.attr('id');
+
 		var coords = $this.parent().attr('id');
 		var x = parseInt(coords.charAt(0));
 		var y = parseInt(coords.charAt(2)); 
-		var greenX;
-		//console.log(id + " on " + coords);
 
-		if (id == 'w_p') {
-			if (turn == 1) {
-				greenX = x - 2;
-				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
-				greenX = x - 1;
-				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
-			}
-			else {
-				greenX = x - 1;
-				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
-			}
-			for (var i = 0; i < greenDots.length; i++) {
-				$('.field#' + greenDots[i]).addClass('greenBG');
-			}
+		var id = $this.attr('id');
+		var color = id.charAt(0);
+		var type = id.charAt(2);
 
-			//$('.field#' + greenX + '_' + y).addClass('greenBG');
-			//.css({'background-image': "url('resources/images/GreenDot.png')", 
-				//'background-attachment': 'fixed', 'background-size': 'cover', 'background-position': '50% 80%'});
-			//console.log($('.field#' + greenX + '_' + y).attr(id))
-			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
-		}
-		if (id == 'b_p') {
-
-			if (turn == 1) {
-				greenX = x + 2;
-				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
-				greenX = x + 1;
-				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
-			}
-			else {
-				greenX = x + 1;
-				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
-			}
-			for (var i = 0; i < greenDots.length; i++) {
-				$('.field#' + greenDots[i]).addClass('greenBG');
-			}
-
-			
-		}
+		findPossibleMoves($this, x, y, color, type);
 	});
 
 	$('#main-content .field img').bind("mouseleave", function(){
@@ -123,11 +86,13 @@ function changeTurn() {
 			$('.field img.b').removeClass('onTurn');
 			$('.field img.w').addClass('onTurn');
 			break;
+
 		case 1:
 			playerTurn--;
 			$('.field img.w').removeClass('onTurn');
 			$('.field img.b').addClass('onTurn');
 			break;
+
 		default:
 			break;
 	}
@@ -141,4 +106,96 @@ function changeTurn() {
 	}
 
 	console.log(playerTurn);
+}
+
+function findPossibleMoves(piece, x, y, color, type) {
+
+	var greenX = new Array();
+	var greenY = new Array();
+	var dots = 0;
+	var sign;
+
+	switch (color) {
+
+		case 'b':
+			sign = '+';
+			break;
+
+		case 'w':
+			sign = '-';
+			break;
+
+		default:
+			break;
+	}
+
+	switch(type) {
+
+		case 'p':
+			greenX.push( eval(x + sign + '1') );
+			greenY.push(y);
+			dots++;
+
+			if (turn == 1) {
+
+				greenX.push( eval(x + sign + '2') );
+				greenY.push(y);
+				dots++;
+			}
+			break;
+
+		default:
+			break;
+	}
+
+	for (var i = 0; i < dots; i++) {
+
+		greenDots.push( greenX[i] + '_' + greenY[i] );
+
+		$('.field#' + greenDots[i]).addClass('greenBG');
+	}
+
+	/*
+	if (id == 'w_p') {
+
+		if (turn == 1) {
+
+			greenX = x - 2;
+			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+			greenX = x - 1;
+			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+		} else {
+
+			greenX = x - 1;
+			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+		}
+
+		for (var i = 0; i < greenDots.length; i++) {
+
+			$('.field#' + greenDots[i]).addClass('greenBG');
+		}
+
+		greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+	}
+
+	if (id == 'b_p') {
+
+		if (turn == 1) {
+
+			greenX = x + 2;
+			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+			greenX = x + 1;
+			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+		} else {
+
+			greenX = x + 1;
+			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+		}
+
+		for (var i = 0; i < greenDots.length; i++) {
+
+			$('.field#' + greenDots[i]).addClass('greenBG');
+		}	
+	}
+	*/
 }
