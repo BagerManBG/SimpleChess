@@ -1,26 +1,10 @@
-var turn = 1; //1 - whites; 0 - blacks
+var playerTurn = 1; //1 - whites; 0 - blacks
+var turn = 1;
 
 $(document).ready(function(){
 
 	createField();
 	initializeField();
-
-	// $('#main-content .field img').bind("click", function(){
-
-	// 	var $this = $(this);
-	// 	var id = $this.attr('id');
-	// 	var coords = $this.parent().attr('id');
-	// 	var x = coords.charAt(0);
-	// 	var y = coords.charAt(2); 
-
-	// 	console.log(id + " on " + coords);
-
-	// 	if (id == 'w_p') {
-	// 		var greenX = x - 1;
-	// 		$('.field#' + pX + '_' + y).css('background-color', 'green');
-	// 		console.log($('.field#' + x + '_' + y).attr(id))
-	// 	}
-	// });
 
 	var greenDots = new Array();
 
@@ -29,23 +13,56 @@ $(document).ready(function(){
 		var $this = $(this);
 		var id = $this.attr('id');
 		var coords = $this.parent().attr('id');
-		var x = coords.charAt(0);
-		var y = coords.charAt(2); 
-
+		var x = parseInt(coords.charAt(0));
+		var y = parseInt(coords.charAt(2)); 
+		var greenX;
 		//console.log(id + " on " + coords);
 
 		if (id == 'w_p') {
-			var greenX = x - 1;
-			$('.field#' + greenX + '_' + y).css('background-image', "url('resources/images/GreenDot.png')");
+			if (turn == 1) {
+				greenX = x - 2;
+				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+				greenX = x - 1;
+				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+			}
+			else {
+				greenX = x - 1;
+				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+			}
+			for (var i = 0; i < greenDots.length; i++) {
+				$('.field#' + greenDots[i]).addClass('greenBG');
+			}
+
+			//$('.field#' + greenX + '_' + y).addClass('greenBG');
+			//.css({'background-image': "url('resources/images/GreenDot.png')", 
+				//'background-attachment': 'fixed', 'background-size': 'cover', 'background-position': '50% 80%'});
 			//console.log($('.field#' + greenX + '_' + y).attr(id))
 			greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+		}
+		if (id == 'b_p') {
+
+			if (turn == 1) {
+				greenX = x + 2;
+				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+				greenX = x + 1;
+				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+			}
+			else {
+				greenX = x + 1;
+				greenDots.push($('.field#' + greenX + '_' + y).attr('id'));
+			}
+			for (var i = 0; i < greenDots.length; i++) {
+				$('.field#' + greenDots[i]).addClass('greenBG');
+			}
+
+			
 		}
 	});
 
 	$('#main-content .field img').bind("mouseleave", function(){
-		console.log(greenDots[0]);
+		//console.log(greenDots[0]);
 		for (var i = 0; i < greenDots.length; i++) {
-			$('.field#' + greenDots[i]).css('background-image', "none");
+			$('.field#' + greenDots[i]).removeClass('greenBG');
 		}
 		greenDots.length = 0;
 	});
@@ -99,15 +116,15 @@ function initializeField() {
 
 function changeTurn() {
 
-	switch (turn) {
+	switch (playerTurn) {
 
 		case 0:
-			turn++;
+			playerTurn++;
 			$('.field img.b').removeClass('onTurn');
 			$('.field img.w').addClass('onTurn');
 			break;
 		case 1:
-			turn--;
+			playerTurn--;
 			$('.field img.w').removeClass('onTurn');
 			$('.field img.b').addClass('onTurn');
 			break;
@@ -123,5 +140,5 @@ function changeTurn() {
 		$('#main-content').addClass('rotated');
 	}
 
-	console.log(turn);
+	console.log(playerTurn);
 }
