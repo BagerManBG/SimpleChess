@@ -50,3 +50,8 @@
 
 	background-image: url("../resources/images/PinkDot.png");
 }
+
+.cursorPointer {
+
+	cursor: pointer;
+}

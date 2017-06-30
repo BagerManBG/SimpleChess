@@ -28,6 +28,9 @@ $(document).ready(function(){
 			figure_selected = true;
 			figure_selected_coords = id;
 
+			$('.field').removeClass('cursorPointer');
+			$('.field#' + x + '_' + y).addClass('cursorPointer');
+
 			findPossibleMoves($this, x, y, color, type);
 			
 		} else if($(this).attr('id') == figure_selected_coords) {

@@ -119,6 +119,7 @@ function findPossibleMoves(piece, x, y, color, type) {
 		greenDots.push( greenX[i] + '_' + greenY[i] );
 
 		$('.field#' + greenDots[i]).addClass('greenBG');
+		$('.field#' + greenDots[i]).addClass('cursorPointer');
 		piece.parent().addClass('selectedPiece');
 	}
 
