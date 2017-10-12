@@ -55,6 +55,6 @@ function createFigure(x, y, id) {
 	if(id.charAt(0) == 'w') {
 
 		$('.field#' + x + '_' + y + ' img').addClass('onTurn');
-		$('.field#' + x + '_' + y).addClass('cursorPointer');
+		$('.field#' + x + '_' + y + ' img').addClass('cursorPointer');
 	}
 }
