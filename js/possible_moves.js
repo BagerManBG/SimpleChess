@@ -125,6 +125,52 @@ function findPossibleMoves(piece, x, y, color, type) {
 					}
 				}
 			}
+
+			if (y + 1 <= 7) {
+
+				if (x + 2 <= 7) {
+
+					if(canMoveCheck(x + 2, y + 1, color)) {
+
+						greenX.push(x+2);
+						greenY.push(y+1);
+						dots++;
+					}
+				}
+
+				if (x - 2 >= 0) {
+
+					if(canMoveCheck(x - 2, y + 1, color)) {
+
+						greenX.push(x-2);
+						greenY.push(y+1);
+						dots++;
+					}
+				}
+			}
+
+			if (y - 1 >= 0) {
+
+				if (x + 2 <= 7) {
+
+					if(canMoveCheck(x + 2, y - 1, color)) {
+					
+						greenX.push(x+2);
+						greenY.push(y-1);
+						dots++;
+					}
+				}
+
+				if (x - 2 >= 0) {
+
+					if(canMoveCheck(x - 2, y - 1, color)) {
+
+						greenX.push(x-2);
+						greenY.push(y-1);
+						dots++;
+					}
+				}
+			}
 			break;
 
 		case 't':
