@@ -1,4 +1,4 @@
-var playerTurn = 1; //1 - whites; 0 - blacks
+var playerTurn = "w"; //w - whites; b - blacks
 var turn = 1;
 var greenDots = new Array();
 var greenX = new Array();

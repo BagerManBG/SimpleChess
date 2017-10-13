@@ -8,26 +8,29 @@ function selectFigure($this) {
 	var color = id.charAt(0);
 	var type = id.charAt(2);
 
-	figure_selected = true;
-	figure_selected_coords = id;
+	if(color == playerTurn) {
 
-	$('.field img').removeClass('cursorPointer');
-	$('.field#' + x + '_' + y + ' img').addClass('cursorPointer');
+		figure_selected = true;
+		figure_selected_coords = id;
 
-	findPossibleMoves($this, x, y, color, type);
+		$('.field img').removeClass('cursorPointer');
+		$('.field#' + x + '_' + y + ' img').addClass('cursorPointer');
 
-	$('.greenBG').bind("click", function(){
+		findPossibleMoves($this, x, y, color, type);
 
-		unselectFigure($('.field#' + coords + ' img'));
+		$('.greenBG').bind("click", function(){
 
-		$this = $(this);
+			unselectFigure($('.field#' + coords + ' img'));
 
-		var to_coords = $this.attr('id');
-		var to_x = parseInt(to_coords.charAt(0));
-		var to_y = parseInt(to_coords.charAt(2));
+			$this = $(this);
 
-		movePiece(x, y, to_x, to_y, color, type);
-	});
+			var to_coords = $this.attr('id');
+			var to_x = parseInt(to_coords.charAt(0));
+			var to_y = parseInt(to_coords.charAt(2));
+
+			movePiece(x, y, to_x, to_y, color, type);
+		});
+	}
 }
 
 function unselectFigure(figure) {
