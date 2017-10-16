@@ -4,9 +4,13 @@ function changeTurn() {
 
 		case "w":
 			playerTurn = "b";
+			$('.w').removeClass('cursorPointer');
+			$('.b').addClass('cursorPointer');
 			break;
 		case "b":
 			playerTurn = "w";
+			$('.b').removeClass('cursorPointer');
+			$('.w').addClass('cursorPointer');
 			break;
 		default:
 			break;

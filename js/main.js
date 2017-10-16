@@ -4,7 +4,7 @@ var greenDots = new Array();
 var greenX = new Array();
 var greenY = new Array();
 var figure_selected = false;
-var figure_selected_coords;
+var figure_selected_coords = null;
 
 $(document).ready(function(){
 
@@ -13,13 +13,21 @@ $(document).ready(function(){
 
 	$('#main-content .field img.pieces').bind("click", function(){
 
-		if(!figure_selected) {
+		/*if(!figure_selected) {
 
 			selectFigure($(this));
 			
 		} else if($(this).attr('id') == figure_selected_coords) {
 
-			unselectFigure($(this));
+			unselectFigure();
+		}*/
+
+		if($(this).parent().attr('id') == figure_selected_coords) {
+
+			unselectFigure();
+		} else if($(this).attr('class').substr(0,1) == playerTurn){
+
+			selectFigure($(this));
 		}
 	});	
 });

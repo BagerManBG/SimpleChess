@@ -36,13 +36,12 @@ function movePiece(x, y, to_x, to_y, color, type) {
 
 	$('#main-content .field#' + to_x + '_' + to_y + ' img').bind("click", function(){
 
-		if(!figure_selected) {
+		if($(this).parent().attr('id') == figure_selected_coords) {
+
+			unselectFigure();
+		} else if($(this).attr('class').substr(0,1) == playerTurn){
 
 			selectFigure($(this));
-			
-		} else if($(this).attr('id') == figure_selected_coords) {
-
-			unselectFigure($(this));
 		}
 	});
 }

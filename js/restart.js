@@ -9,13 +9,12 @@ function restartGame() {
 
 	$('#main-content .field img.pieces').bind("click", function(){
 
-		if(!figure_selected) {
+		if($(this).parent().attr('id') == figure_selected_coords) {
+
+			unselectFigure();
+		} else if($(this).attr('class').substr(0,1) == playerTurn){
 
 			selectFigure($(this));
-			
-		} else if($(this).attr('id') == figure_selected_coords) {
-
-			unselectFigure($(this));
 		}
 	});
 }

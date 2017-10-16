@@ -1,5 +1,7 @@
 function selectFigure($this) {
 
+	unselectFigure();
+
 	var coords = $this.parent().attr('id');
 	var x = parseInt(coords.charAt(0));
 	var y = parseInt(coords.charAt(2)); 
@@ -11,10 +13,7 @@ function selectFigure($this) {
 	if(color == playerTurn) {
 
 		figure_selected = true;
-		figure_selected_coords = id;
-
-		$('.field img').removeClass('cursorPointer');
-		$('.field#' + x + '_' + y + ' img').addClass('cursorPointer');
+		figure_selected_coords = coords;
 
 		findPossibleMoves($this, x, y, color, type);
 
@@ -33,7 +32,7 @@ function selectFigure($this) {
 	}
 }
 
-function unselectFigure(figure) {
+function unselectFigure() {
 
 	$('.greenBG').unbind("click");
 
@@ -43,7 +42,7 @@ function unselectFigure(figure) {
 		$('.field').removeClass('cursorPointer');
 	}
 
-	figure.parent().removeClass('selectedPiece');
+	$('.field').removeClass('selectedPiece');
 
 	switch(playerTurn) {
 
@@ -60,4 +59,5 @@ function unselectFigure(figure) {
 	greenDots.length = 0;
 
 	figure_selected = false;
+	figure_selected_coords = null;
 }

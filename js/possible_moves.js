@@ -70,7 +70,7 @@ function findPossibleMoves(piece, x, y, color, type) {
 
 			if ((y == 6 && color == 'w') || (y == 1 && color == 'b')) {
 
-				if(canMoveCheck(x, eval(y + sign + '2'), color)) {
+				if(canMoveCheck(x, eval(y + sign + '2'), color) == 1) {
 
 					greenX.push(x);
 					greenY.push( eval(y + sign + '2') );
