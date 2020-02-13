@@ -1,33 +1,56 @@
-var playerTurn = "w"; //w - whites; b - blacks
-var turn = 1;
-var greenDots = new Array();
-var greenX = new Array();
-var greenY = new Array();
-var figure_selected = false;
-var figure_selected_coords = null;
+const $document = $(document);
+let player_turn = 'w'; //w - whites; b - blacks
 
-$(document).ready(function(){
+function piece_click() {
+	const piece = $(this);
+	const field = piece.parent();
+	const fields = $('.field');
 
-	createField();
-	initializeField();
+	const field_data = field.attr('id').split('_');
+	const piece_data = piece.attr('id').split('_');
 
-	$('#main-content .field img.pieces').bind("click", function(){
+	const data = {
+		x: Number(field_data[0]),
+		y: Number(field_data[1]),
+		color: piece_data[0],
+		type: piece_data[1],
+	};
 
-		/*if(!figure_selected) {
+	if (data.color !== player_turn)
+		return;
 
-			selectFigure($(this));
-			
-		} else if($(this).attr('id') == figure_selected_coords) {
+	fields.removeClass('greenBG');
 
-			unselectFigure();
-		}*/
+	if (field.hasClass('selectedPiece')) {
+		field.removeClass('selectedPiece');
+	}
+	else {
+		fields.removeClass('selectedPiece');
+		field.addClass('selectedPiece');
+		select_piece(field, piece, data);
+	}
+}
 
-		if($(this).parent().attr('id') == figure_selected_coords) {
+function change_turn() {
+	const fields = $('.field');
+	fields.removeClass('greenBG selectedPiece');
+	player_turn = player_turn === 'w' ? 'b' : 'w';
 
-			unselectFigure();
-		} else if($(this).attr('class').substr(0,1) == playerTurn){
+	const player_king = fields.find('#' + player_turn + '_g');
+	if (player_king.length === 0) {
+		alert(player_turn === 'w' ? 'Blacks win!' : 'Whites win!');
+		main();
+	}
+}
 
-			selectFigure($(this));
-		}
-	});	
-});
+function main() {
+	$('#main-content').empty();
+	player_turn = 'w';
+
+	create_field();
+	initialize_field();
+	hints_toggle();
+	$('.field .piece').click(piece_click);
+}
+
+$document.ready(main);
